@@ -1,0 +1,37 @@
+# Build artifacts
+target/
+*.o
+*.so
+*.dylib
+
+# Flutter
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+android/
+ios/
+web/
+linux/
+macos/
+windows/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Binaries (keep virtual_emmc.bin in repo)
+# *.bin
