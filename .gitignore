@@ -37,12 +37,9 @@ Thumbs.db
 # *.bin
 
 # Local documents and plans
-AEGIS_ONE_MASTER_PRD.md
-ENGINEERING_SPEC_V3.md
-FINANCIAL_STRATEGY_V3.md
+docs_archive/
 GEMINI.md
-GO_TO_MARKET_PLAN.md
-LEAN_STARTUP_ROADMAP.md
+AEGIS_ONE_MASTER.md
 
 # UI builds and caches
 **/build/
