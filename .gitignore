@@ -35,3 +35,23 @@ Thumbs.db
 
 # Binaries (keep virtual_emmc.bin in repo)
 # *.bin
+
+# Local documents and plans
+AEGIS_ONE_MASTER_PRD.md
+ENGINEERING_SPEC_V3.md
+FINANCIAL_STRATEGY_V3.md
+GEMINI.md
+GO_TO_MARKET_PLAN.md
+LEAN_STARTUP_ROADMAP.md
+
+# UI builds and caches
+**/build/
+**/.dart_tool/
+
+# Temporary directories
+scratch_disk/
+.antigravitycli/
+
+# System generated logs and metrics
+thermal_comparison.json
+*.png
