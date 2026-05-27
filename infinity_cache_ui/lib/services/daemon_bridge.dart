@@ -6,59 +6,77 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 class Metrics {
   final double iops;
   final double throughputMb;
-  final double saturation; // 0.0 to 1.0
-  final bool voltageStable;
-  final double voltage;
-  final double emmcWear;
-  final double supercapCharge;
+  final double hmbPressure; // 0.0 to 1.0
+  final double hmbPressurePercentage;
+  final double ufsWearPercentage;
+  final List<double> ufsWearArray; // Wear for 4 channels
   final String status;
   final int totalIos;
   final double moneySaved;
   final double ssdLifeExtended;
   final String backendVersion;
+  final double temperature; 
+  final double performanceMultiplier; 
+  final bool pseudoSlcActive;
+  final int hmbMaxPages;
 
   const Metrics({
     required this.iops,
     required this.throughputMb,
-    required this.saturation,
-    required this.voltageStable,
-    required this.voltage,
-    required this.emmcWear,
-    required this.supercapCharge,
+    required this.hmbPressure,
+    required this.hmbPressurePercentage,
+    required this.ufsWearPercentage,
+    required this.ufsWearArray,
     required this.status,
     required this.totalIos,
     required this.moneySaved,
     required this.ssdLifeExtended,
     required this.backendVersion,
+    required this.temperature,
+    required this.performanceMultiplier,
+    required this.pseudoSlcActive,
+    required this.hmbMaxPages,
   });
 }
 
 class DaemonBridge extends ChangeNotifier {
-  Metrics _metrics = const Metrics(
+  Metrics _metrics = Metrics(
     iops: 0,
     throughputMb: 0,
-    saturation: 0,
-    voltageStable: true,
-    voltage: 3.3,
-    emmcWear: 0.001,
-    supercapCharge: 100,
+    hmbPressure: 0,
+    hmbPressurePercentage: 0,
+    ufsWearPercentage: 0.1,
+    ufsWearArray: List.filled(4, 0.001),
     status: "DISCONNECTED",
     totalIos: 0,
     moneySaved: 0.0,
     ssdLifeExtended: 0.0,
-    backendVersion: "N/A",
+    backendVersion: "AEGIS-V3.0",
+    temperature: 25.0,
+    performanceMultiplier: 1.0,
+    pseudoSlcActive: false,
+    hmbMaxPages: 4096,
   );
 
   Metrics get metrics => _metrics;
 
   WebSocketChannel? _channel;
   StreamSubscription? _subscription;
-  
+
   List<double> iopsHistory = List.filled(60, 0.0, growable: true);
   List<double> throughputHistory = List.filled(60, 0.0, growable: true);
+  List<double> aegisTempHistory = List.filled(60, 25.0, growable: true);
+  List<double> nvmeTempHistory = List.filled(60, 25.0, growable: true);
+  double _simulatedNvmeTemp = 25.0;
 
-  double? _lastTotalIos;
-  DateTime _lastUpdateTime = DateTime.now();
+  // 1M-write demo tracking
+  int demo1MTotal = 0;
+  int demo1MConsumed = 0;
+  bool get demo1MRunning => demo1MTotal > 0 && demo1MConsumed < demo1MTotal;
+
+  bool _hmbPressureSimulated = false;
+
+  final List<_IoSample> _ioSamples = [];
 
   DaemonBridge() {
     _connect();
@@ -71,16 +89,18 @@ class DaemonBridge extends ChangeNotifier {
 
   void _connect() {
     _isActuallyConnected = false;
-    debugPrint("DaemonBridge: Attempting connection to ws://localhost:3030...");
-    _startMockTelemetry(); 
+    debugPrint("DaemonBridge: Attempting connection to ws://127.0.0.1:3030...");
+    _startMockTelemetry();
     try {
-      _channel = WebSocketChannel.connect(Uri.parse('ws://localhost:3030'));
+      _channel = WebSocketChannel.connect(Uri.parse('ws://127.0.0.1:3030'));
       _subscription = _channel!.stream.listen(
         (data) {
           packetsReceived++;
           lastRawData = data.toString();
           if (!_isActuallyConnected) {
-            debugPrint("DaemonBridge: CONNECTION ESTABLISHED. Switching to LIVE mode.");
+            debugPrint(
+              "DaemonBridge: CONNECTION ESTABLISHED. Switching to LIVE mode.",
+            );
             _isActuallyConnected = true;
           }
           _handleData(data);
@@ -114,30 +134,52 @@ class DaemonBridge extends ChangeNotifier {
       if (_isActuallyConnected) return;
 
       final random = DateTime.now().millisecondsSinceEpoch;
+
+      double mockIops = _isStressed
+          ? 25000 + (random % 5000).toDouble()
+          : 120 + (random % 300).toDouble();
+      double mockThroughput = (mockIops * 4096) / (1024 * 1024);
       
-      final double mockIops = _isStressed 
-          ? 18000 + (random % 4000).toDouble() 
-          : 50 + (random % 150).toDouble();
-      
-      final double mockThroughput = (mockIops * 4096) / (1024 * 1024);
-      
+      double mockPressure = _hmbPressureSimulated ? 0.92 : (_isStressed ? 0.45 : 0.08);
+
       final double addedMoney = (mockIops / 1000000);
       final double addedLife = (mockIops / 10000000);
 
       _metrics = Metrics(
         iops: mockIops,
         throughputMb: mockThroughput,
-        saturation: _isStressed ? 0.82 + (random % 50) / 1000.0 : 0.12 + (random % 50) / 1000.0,
-        voltageStable: true,
-        voltage: 3.29 + (random % 2) / 100.0,
-        emmcWear: 0.002,
-        supercapCharge: 99.9,
+        hmbPressure: mockPressure,
+        hmbPressurePercentage: mockPressure * 100.0,
+        ufsWearPercentage: 0.15,
+        ufsWearArray: List.filled(4, 0.002),
         status: "MOCK_DEMO_MODE",
         totalIos: _metrics.totalIos + (mockIops / 2).toInt(),
         moneySaved: _metrics.moneySaved + addedMoney,
         ssdLifeExtended: _metrics.ssdLifeExtended + addedLife,
-        backendVersion: "UI-EMULATOR",
+        backendVersion: "AEGIS-V3-MOCK",
+        temperature: 25.0 + (_isStressed ? 18.0 : 4.0) + (random % 5) / 10.0,
+        performanceMultiplier: 1.0,
+        pseudoSlcActive: mockPressure > 0.85,
+        hmbMaxPages: _hmbPressureSimulated ? 512 : 4096,
       );
+
+      // Update thermal history
+      _simulatedNvmeTemp = _isStressed
+          ? (_simulatedNvmeTemp + 0.6).clamp(25.0, 95.0)
+          : (_simulatedNvmeTemp - 0.1).clamp(25.0, 95.0);
+      
+      final newATemp = List<double>.from(aegisTempHistory);
+      newATemp.removeAt(0);
+      newATemp.add(_metrics.temperature);
+      aegisTempHistory = newATemp;
+      final newNTemp = List<double>.from(nvmeTempHistory);
+      newNTemp.removeAt(0);
+      newNTemp.add(_simulatedNvmeTemp);
+      nvmeTempHistory = newNTemp;
+
+      if (demo1MRunning) {
+        demo1MConsumed = (demo1MConsumed + (mockIops / 2).toInt()).clamp(0, demo1MTotal);
+      }
 
       final newIops = List<double>.from(iopsHistory);
       newIops.removeAt(0);
@@ -148,74 +190,80 @@ class DaemonBridge extends ChangeNotifier {
       newTp.removeAt(0);
       newTp.add(mockThroughput);
       throughputHistory = newTp;
-      
+
       notifyListeners();
     });
   }
 
-
   void _handleData(String data) {
     try {
-      String cleanData = data.trim();
-      if (!cleanData.startsWith('{') && cleanData.contains('{')) {
-        // Attempt to recover if it starts with garbage like "[CORE]" or "[DAEMON]"
-        cleanData = cleanData.substring(cleanData.indexOf('{'));
-      }
-      
-      final Map<String, dynamic> json = jsonDecode(cleanData);
-      
-      debugPrint("Flutter received: $cleanData");
-      
+      final Map<String, dynamic> json = jsonDecode(data.trim());
+
       final double totalIos = (json['total_ios'] as num).toDouble();
       final DateTime now = DateTime.now();
-      
+
+      _ioSamples.add(_IoSample(now, totalIos));
+      _ioSamples.retainWhere((s) => now.difference(s.time).inMilliseconds < 1000);
+
       double currentIops = 0;
-      debugPrint("IOPS calc: total=$totalIos, last=$_lastTotalIos");
-      if (_lastTotalIos != null) {
-        final double elapsedSec = now.difference(_lastUpdateTime).inMilliseconds / 1000.0;
-        debugPrint("IOPS calc: elapsed=${elapsedSec}s");
-        if (elapsedSec > 0) {
-          final double deltaIos = totalIos - _lastTotalIos!;
-          debugPrint("IOPS calc: delta=$deltaIos");
-          if (deltaIos >= 0) {
-            currentIops = deltaIos / elapsedSec;
-            debugPrint("IOPS calc: RESULT=$currentIops");
-          }
+      if (_ioSamples.length > 1) {
+        final firstSample = _ioSamples.first;
+        final lastSample = _ioSamples.last;
+        final elapsedSec = lastSample.time.difference(firstSample.time).inMilliseconds / 1000.0;
+        if (elapsedSec > 0.1) {
+          currentIops = (lastSample.totalIos - firstSample.totalIos) / elapsedSec;
         }
       }
-      
-      _lastTotalIos = totalIos;
-      _lastUpdateTime = now;
 
       final double currentThroughput = (currentIops * 4096) / (1024 * 1024);
-      final double saturation = (json['active_pages'] as num) / (json['max_pages'] as num);
-      final double voltage = (json['voltage'] as num).toDouble();
+      final double pressurePct = (json['hmb_pressure_percentage'] as num).toDouble();
+      final List<dynamic> wearArrayRaw = json['chip_wear_array'] as List<dynamic>;
+      final List<double> ufsWears = wearArrayRaw.map((e) => (e as num).toDouble()).toList();
 
       final double gbWritten = (totalIos * 4096) / (1024 * 1024 * 1024);
-      final double moneySaved = gbWritten * 0.05; 
-      final double ssdLifeExtended = gbWritten / 10.0;
+      final double moneySaved = gbWritten * 0.12; // Adjusted for new pricing gap
+      final double ssdLifeExtended = gbWritten / 5.0;
 
       _metrics = Metrics(
         iops: currentIops,
         throughputMb: currentThroughput,
-        saturation: saturation,
-        voltageStable: voltage >= 2.9,
-        voltage: voltage,
-        emmcWear: (json['emmc_wear_percentage'] as num).toDouble(),
-        supercapCharge: (json['supercap_charge'] as num).toDouble(),
+        hmbPressure: pressurePct / 100.0,
+        hmbPressurePercentage: pressurePct,
+        ufsWearPercentage: (json['ufs_wear_percentage'] as num).toDouble(),
+        ufsWearArray: ufsWears,
         status: json['status'],
         totalIos: totalIos.toInt(),
         moneySaved: moneySaved,
         ssdLifeExtended: ssdLifeExtended,
-        backendVersion: json['version'] ?? "V1-LEGACY",
+        backendVersion: json['version'] ?? "V3-ALPHA",
+        temperature: (json['temperature'] as num).toDouble(),
+        performanceMultiplier: (json['performance_multiplier'] as num).toDouble(),
+        pseudoSlcActive: json['pseudo_slc_active'] as bool,
+        hmbMaxPages: (json['hmb_max_pages'] as num).toInt(),
       );
 
-      final List<double> newIopsHistory = List.from(iopsHistory);
+      _simulatedNvmeTemp = (_simulatedNvmeTemp + (currentIops > 30000 ? 0.4 : -0.05)).clamp(25.0, 98.0);
+
+      final newATemp = List<double>.from(aegisTempHistory);
+      newATemp.removeAt(0);
+      newATemp.add(_metrics.temperature);
+      aegisTempHistory = newATemp;
+
+      final newNTemp = List<double>.from(nvmeTempHistory);
+      newNTemp.removeAt(0);
+      newNTemp.add(_simulatedNvmeTemp);
+      nvmeTempHistory = newNTemp;
+
+      if (demo1MRunning) {
+        demo1MConsumed = (demo1MConsumed + (currentIops * 0.3).toInt()).clamp(0, demo1MTotal);
+      }
+
+      final newIopsHistory = List<double>.from(iopsHistory);
       newIopsHistory.removeAt(0);
       newIopsHistory.add(currentIops);
       iopsHistory = newIopsHistory;
-      
-      final List<double> newTpHistory = List.from(throughputHistory);
+
+      final newTpHistory = List<double>.from(throughputHistory);
       newTpHistory.removeAt(0);
       newTpHistory.add(currentThroughput);
       throughputHistory = newTpHistory;
@@ -223,7 +271,6 @@ class DaemonBridge extends ChangeNotifier {
       notifyListeners();
     } catch (e) {
       debugPrint("DaemonBridge: Error parsing live data: $e");
-      notifyListeners(); // ENSURE UI UPDATES even on error to show debug state
     }
   }
 
@@ -232,26 +279,49 @@ class DaemonBridge extends ChangeNotifier {
 
   void toggleStressTest() {
     _isStressed = !_isStressed;
-    debugPrint("DaemonBridge: toggleStressTest() -> $_isStressed");
-    
     if (_isActuallyConnected) {
-      if (_isStressed) {
-        _channel?.sink.add("START_STRESS_TEST");
-      } else {
-        _channel?.sink.add("STOP_STRESS_TEST");
-      }
+      _channel?.sink.add(_isStressed ? "START_STRESS_TEST" : "STOP_STRESS_TEST");
     }
     notifyListeners();
   }
 
-  void simulatePowerFailure() {
-    debugPrint("DaemonBridge: simulatePowerFailure() clicked.");
-    _channel?.sink.add("SIMULATE_POWER_LOSS");
+  void simulateHmbPressure() {
+    if (_isActuallyConnected) {
+      _channel?.sink.add("SIMULATE_HMB_PRESSURE");
+    } else {
+      _hmbPressureSimulated = true;
+      notifyListeners();
+    }
   }
 
-  void resetPower() {
-    debugPrint("DaemonBridge: resetPower() clicked.");
-    _channel?.sink.add("RESET_POWER");
+  void resetHmb() {
+    if (_isActuallyConnected) {
+      _channel?.sink.add("RESET_HMB");
+    } else {
+      _hmbPressureSimulated = false;
+      notifyListeners();
+    }
+  }
+
+  void startThermalStress() {
+    if (_isActuallyConnected) _channel?.sink.add("START_THERMAL_STRESS");
+    notifyListeners();
+  }
+
+  void stopThermalStress() {
+    if (_isActuallyConnected) _channel?.sink.add("STOP_THERMAL_STRESS");
+    notifyListeners();
+  }
+
+  void start1MDemo() {
+    demo1MTotal = 1000000;
+    demo1MConsumed = 0;
+    if (_isActuallyConnected) {
+      _channel?.sink.add("START_1M_DEMO");
+    } else {
+      _isStressed = true;
+    }
+    notifyListeners();
   }
 
   @override
@@ -267,16 +337,25 @@ extension MetricsExtension on Metrics {
     return Metrics(
       iops: iops,
       throughputMb: throughputMb,
-      saturation: saturation,
-      voltageStable: voltageStable,
-      voltage: voltage,
-      emmcWear: emmcWear,
-      supercapCharge: supercapCharge,
+      hmbPressure: hmbPressure,
+      hmbPressurePercentage: hmbPressurePercentage,
+      ufsWearPercentage: ufsWearPercentage,
+      ufsWearArray: ufsWearArray,
       status: status ?? this.status,
       totalIos: totalIos,
       moneySaved: moneySaved,
       ssdLifeExtended: ssdLifeExtended,
       backendVersion: backendVersion,
+      temperature: temperature,
+      performanceMultiplier: performanceMultiplier,
+      pseudoSlcActive: pseudoSlcActive,
+      hmbMaxPages: hmbMaxPages,
     );
   }
+}
+
+class _IoSample {
+  final DateTime time;
+  final double totalIos;
+  _IoSample(this.time, this.totalIos);
 }

@@ -3,4 +3,5 @@ resolver = "2"
 members = [
     "infinity_cache_core",
     "infinity_cache_daemon",
+    "infinity_cache_bench",
 ]

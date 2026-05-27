@@ -2,15 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
-  static const Color background = Color(0xFF0D0D12);
-  static const Color surface = Color(0xFF161622);
-  static const Color primary = Color(0xFF00FFCC); // Neon Cyan
-  static const Color secondary = Color(0xFFFF0055); // Neon Pink
-  static const Color accent = Color(0xFFB026FF); // Deep Neon Purple
-  static const Color textPrimary = Color(0xFFE0E0E0);
-  static const Color textSecondary = Color(0xFF8A8A9D);
-  static const Color danger = Color(0xFFFF3333);
-  static const Color success = Color(0xFF33FF77);
+  static const Color background = Color(
+    0xFF09090B,
+  ); // Slate/Zinc Black (Vercel)
+  static const Color surface = Color(0xFF18181B); // Slate/Zinc Dark
+  static const Color primary = Color(
+    0xFF3B82F6,
+  ); // Sapphire Blue (Tailwind Blue)
+  static const Color secondary = Color(0xFF6366F1); // Royal Indigo
+  static const Color accent = Color(0xFF8B5CF6); // Enterprise Violet
+  static const Color textPrimary = Color(0xFFF4F4F5); // Crisp Zinc Off-White
+  static const Color textSecondary = Color(
+    0xFF8E8E9F,
+  ); // Elegant Muted Slate Grey
+  static const Color danger = Color(0xFFEF4444); // Coral Red
+  static const Color success = Color(0xFF10B981); // Emerald Green
 
   static ThemeData get darkTheme {
     return ThemeData(
@@ -24,41 +30,47 @@ class AppTheme {
         error: danger,
       ),
       textTheme: TextTheme(
-        displayLarge: GoogleFonts.rajdhani(
-          fontSize: 48,
-          fontWeight: FontWeight.bold,
+        displayLarge: GoogleFonts.plusJakartaSans(
+          fontSize: 36,
+          fontWeight: FontWeight.w800,
           color: textPrimary,
-          letterSpacing: 2.0,
+          letterSpacing: -1.0,
         ),
-        titleLarge: GoogleFonts.rajdhani(
-          fontSize: 24,
-          fontWeight: FontWeight.w600,
+        titleLarge: GoogleFonts.plusJakartaSans(
+          fontSize: 20,
+          fontWeight: FontWeight.w700,
           color: textPrimary,
+          letterSpacing: -0.5,
         ),
-        bodyLarge: GoogleFonts.jetBrainsMono(
-          fontSize: 16,
-          color: textPrimary,
-        ),
-        bodyMedium: GoogleFonts.jetBrainsMono(
+        bodyLarge: GoogleFonts.plusJakartaSans(
           fontSize: 14,
+          fontWeight: FontWeight.w500,
+          color: textPrimary,
+        ),
+        bodyMedium: GoogleFonts.plusJakartaSans(
+          fontSize: 12,
           color: textSecondary,
         ),
         labelSmall: GoogleFonts.jetBrainsMono(
-          fontSize: 12,
+          fontSize: 11,
+          fontWeight: FontWeight.w600,
           color: primary,
         ),
       ),
       cardTheme: CardThemeData(
-        color: surface,
-        elevation: 8,
-        shadowColor: primary.withOpacity(0.1),
+        color: Colors.white.withValues(alpha: 0.015),
+        elevation: 0,
+        shadowColor: Colors.transparent,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
-          side: BorderSide(color: primary.withOpacity(0.2), width: 1),
+          side: BorderSide(
+            color: Colors.white.withValues(alpha: 0.05),
+            width: 1,
+          ),
         ),
       ),
       iconTheme: const IconThemeData(color: primary),
-      dividerColor: textSecondary.withOpacity(0.2),
+      dividerColor: textSecondary.withValues(alpha: 0.08),
     );
   }
 }

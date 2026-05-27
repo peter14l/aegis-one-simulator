@@ -34,7 +34,7 @@ class _InfinityCacheAppState extends State<InfinityCacheApp> {
     return BridgeProvider(
       bridge: _daemonBridge,
       child: MaterialApp.router(
-        title: 'Infinity-Cache Manager',
+        title: 'Aegis-One Storage Engine',
         theme: AppTheme.darkTheme,
         routerConfig: router,
         debugShowCheckedModeBanner: false,
@@ -46,14 +46,11 @@ class _InfinityCacheAppState extends State<InfinityCacheApp> {
 class BridgeProvider extends InheritedWidget {
   final DaemonBridge bridge;
 
-  const BridgeProvider({
-    super.key,
-    required this.bridge,
-    required super.child,
-  });
+  const BridgeProvider({super.key, required this.bridge, required super.child});
 
   static DaemonBridge of(BuildContext context) {
-    final provider = context.dependOnInheritedWidgetOfExactType<BridgeProvider>();
+    final provider = context
+        .dependOnInheritedWidgetOfExactType<BridgeProvider>();
     assert(provider != null, 'No BridgeProvider found in context');
     return provider!.bridge;
   }

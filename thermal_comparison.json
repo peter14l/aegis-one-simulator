@@ -1,0 +1,1206 @@
+{
+    "Aegis_One_V3_Production": [
+        {
+            "sec": 0,
+            "temp": 28.82,
+            "performance": 1.0
+        },
+        {
+            "sec": 1,
+            "temp": 23.2,
+            "performance": 1.0
+        },
+        {
+            "sec": 2,
+            "temp": 31.47,
+            "performance": 1.0
+        },
+        {
+            "sec": 3,
+            "temp": 19.31,
+            "performance": 1.0
+        },
+        {
+            "sec": 4,
+            "temp": 37.2,
+            "performance": 1.0
+        },
+        {
+            "sec": 5,
+            "temp": 10.89,
+            "performance": 1.0
+        },
+        {
+            "sec": 6,
+            "temp": 49.58,
+            "performance": 1.0
+        },
+        {
+            "sec": 7,
+            "temp": -7.32,
+            "performance": 1.0
+        },
+        {
+            "sec": 8,
+            "temp": 76.35,
+            "performance": 1.0
+        },
+        {
+            "sec": 9,
+            "temp": -46.69,
+            "performance": 1.0
+        },
+        {
+            "sec": 10,
+            "temp": 134.25,
+            "performance": 0.5
+        },
+        {
+            "sec": 11,
+            "temp": -131.84,
+            "performance": 1.0
+        },
+        {
+            "sec": 12,
+            "temp": 259.47,
+            "performance": 0.5
+        },
+        {
+            "sec": 13,
+            "temp": -315.99,
+            "performance": 1.0
+        },
+        {
+            "sec": 14,
+            "temp": 530.28,
+            "performance": 0.5
+        },
+        {
+            "sec": 15,
+            "temp": -714.23,
+            "performance": 1.0
+        },
+        {
+            "sec": 16,
+            "temp": 1115.93,
+            "performance": 0.5
+        },
+        {
+            "sec": 17,
+            "temp": -1575.48,
+            "performance": 1.0
+        },
+        {
+            "sec": 18,
+            "temp": 2382.47,
+            "performance": 0.5
+        },
+        {
+            "sec": 19,
+            "temp": -3438.05,
+            "performance": 1.0
+        },
+        {
+            "sec": 20,
+            "temp": 5121.54,
+            "performance": 0.5
+        },
+        {
+            "sec": 21,
+            "temp": -7466.09,
+            "performance": 1.0
+        },
+        {
+            "sec": 22,
+            "temp": 11045.14,
+            "performance": 0.5
+        },
+        {
+            "sec": 23,
+            "temp": -16177.26,
+            "performance": 1.0
+        },
+        {
+            "sec": 24,
+            "temp": 23855.68,
+            "performance": 0.5
+        },
+        {
+            "sec": 25,
+            "temp": -35016.3,
+            "performance": 1.0
+        },
+        {
+            "sec": 26,
+            "temp": 51560.14,
+            "performance": 0.5
+        },
+        {
+            "sec": 27,
+            "temp": -75758.15,
+            "performance": 1.0
+        },
+        {
+            "sec": 28,
+            "temp": 111474.63,
+            "performance": 0.5
+        },
+        {
+            "sec": 29,
+            "temp": -163867.69,
+            "performance": 1.0
+        },
+        {
+            "sec": 30,
+            "temp": 241047.49,
+            "performance": 0.5
+        },
+        {
+            "sec": 31,
+            "temp": -354416.01,
+            "performance": 1.0
+        },
+        {
+            "sec": 32,
+            "temp": 521265.61,
+            "performance": 0.5
+        },
+        {
+            "sec": 33,
+            "temp": -766501.48,
+            "performance": 1.0
+        },
+        {
+            "sec": 34,
+            "temp": 1127273.65,
+            "performance": 0.5
+        },
+        {
+            "sec": 35,
+            "temp": -1657689.77,
+            "performance": 1.0
+        },
+        {
+            "sec": 36,
+            "temp": 2437844.67,
+            "performance": 0.5
+        },
+        {
+            "sec": 37,
+            "temp": -3585000.1,
+            "performance": 1.0
+        },
+        {
+            "sec": 38,
+            "temp": 5272124.55,
+            "performance": 0.5
+        },
+        {
+            "sec": 39,
+            "temp": -7753058.75,
+            "performance": 1.0
+        },
+        {
+            "sec": 40,
+            "temp": 11401622.58,
+            "performance": 0.5
+        },
+        {
+            "sec": 41,
+            "temp": -16767026.44,
+            "performance": 1.0
+        },
+        {
+            "sec": 42,
+            "temp": 24657457.41,
+            "performance": 0.5
+        },
+        {
+            "sec": 43,
+            "temp": -36260901.19,
+            "performance": 1.0
+        },
+        {
+            "sec": 44,
+            "temp": 53324920.29,
+            "performance": 0.5
+        },
+        {
+            "sec": 45,
+            "temp": -78418934.83,
+            "performance": 1.0
+        },
+        {
+            "sec": 46,
+            "temp": 115322028.58,
+            "performance": 0.5
+        },
+        {
+            "sec": 47,
+            "temp": -169591152.9,
+            "performance": 1.0
+        },
+        {
+            "sec": 48,
+            "temp": 249398819.86,
+            "performance": 0.5
+        },
+        {
+            "sec": 49,
+            "temp": -366762904.79,
+            "performance": 1.0
+        },
+        {
+            "sec": 50,
+            "temp": 539357278.52,
+            "performance": 0.5
+        },
+        {
+            "sec": 51,
+            "temp": -793172402.83,
+            "performance": 1.0
+        },
+        {
+            "sec": 52,
+            "temp": 1166430069.75,
+            "performance": 0.5
+        },
+        {
+            "sec": 53,
+            "temp": -1715338272.27,
+            "performance": 1.0
+        },
+        {
+            "sec": 54,
+            "temp": 2522556348.34,
+            "performance": 0.5
+        },
+        {
+            "sec": 55,
+            "temp": -3709641623.15,
+            "performance": 1.0
+        },
+        {
+            "sec": 56,
+            "temp": 5455355393.75,
+            "performance": 0.5
+        },
+        {
+            "sec": 57,
+            "temp": -8022581395.81,
+            "performance": 1.0
+        },
+        {
+            "sec": 58,
+            "temp": 11797913882.95,
+            "performance": 0.5
+        },
+        {
+            "sec": 59,
+            "temp": -17349873291.69,
+            "performance": 1.0
+        },
+        {
+            "sec": 60,
+            "temp": 25514519612.2,
+            "performance": 0.5
+        },
+        {
+            "sec": 61,
+            "temp": -37521352305.29,
+            "performance": 1.0
+        },
+        {
+            "sec": 62,
+            "temp": 55178459338.08,
+            "performance": 0.5
+        },
+        {
+            "sec": 63,
+            "temp": -81144793078.64,
+            "performance": 1.0
+        },
+        {
+            "sec": 64,
+            "temp": 119330578122.42,
+            "performance": 0.5
+        },
+        {
+            "sec": 65,
+            "temp": -175486144232.08,
+            "performance": 1.0
+        },
+        {
+            "sec": 66,
+            "temp": 258067859230.42,
+            "performance": 0.5
+        },
+        {
+            "sec": 67,
+            "temp": -379511557626.2,
+            "performance": 1.0
+        },
+        {
+            "sec": 68,
+            "temp": 558105231868.83,
+            "performance": 0.5
+        },
+        {
+            "sec": 69,
+            "temp": -820742987976.8,
+            "performance": 1.0
+        },
+        {
+            "sec": 70,
+            "temp": 1206974982384.42,
+            "performance": 0.5
+        },
+        {
+            "sec": 71,
+            "temp": -1774963209323.26,
+            "performance": 1.0
+        },
+        {
+            "sec": 72,
+            "temp": 2610240013776.26,
+            "performance": 0.5
+        },
+        {
+            "sec": 73,
+            "temp": -3838588255487.74,
+            "performance": 1.0
+        },
+        {
+            "sec": 74,
+            "temp": 5644982728724.03,
+            "performance": 0.5
+        },
+        {
+            "sec": 75,
+            "temp": -8301445189234.46,
+            "performance": 1.0
+        },
+        {
+            "sec": 76,
+            "temp": 12208007631292.73,
+            "performance": 0.5
+        },
+        {
+            "sec": 77,
+            "temp": -17952952398894.3,
+            "performance": 1.0
+        },
+        {
+            "sec": 78,
+            "temp": 26401400586674.87,
+            "performance": 0.5
+        },
+        {
+            "sec": 79,
+            "temp": -38825589097985.69,
+            "performance": 1.0
+        },
+        {
+            "sec": 80,
+            "temp": 57096454555926.91,
+            "performance": 0.5
+        },
+        {
+            "sec": 81,
+            "temp": -83965374346885.75,
+            "performance": 1.0
+        },
+        {
+            "sec": 82,
+            "temp": 123478491686662.28,
+            "performance": 0.5
+        },
+        {
+            "sec": 83,
+            "temp": -181586017186202.47,
+            "performance": 1.0
+        },
+        {
+            "sec": 84,
+            "temp": 267038260568010.4,
+            "performance": 0.5
+        },
+        {
+            "sec": 85,
+            "temp": -392703324364655.6,
+            "performance": 1.0
+        },
+        {
+            "sec": 86,
+            "temp": 577504888771618.1,
+            "performance": 0.5
+        },
+        {
+            "sec": 87,
+            "temp": -849271895252314.1,
+            "performance": 1.0
+        },
+        {
+            "sec": 88,
+            "temp": 1248929257724057.0,
+            "performance": 0.5
+        },
+        {
+            "sec": 89,
+            "temp": -1836660673123547.5,
+            "performance": 1.0
+        },
+        {
+            "sec": 90,
+            "temp": 2700971578122929.5,
+            "performance": 0.5
+        },
+        {
+            "sec": 91,
+            "temp": -3972017026651301.5,
+            "performance": 1.0
+        },
+        {
+            "sec": 92,
+            "temp": 5841201509781392.0,
+            "performance": 0.5
+        },
+        {
+            "sec": 93,
+            "temp": -8590002220266688.0,
+            "performance": 1.0
+        },
+        {
+            "sec": 94,
+            "temp": 1.2632356206274608e+16,
+            "performance": 0.5
+        },
+        {
+            "sec": 95,
+            "temp": -1.857699442099201e+16,
+            "performance": 1.0
+        },
+        {
+            "sec": 96,
+            "temp": 2.731910944263537e+16,
+            "performance": 0.5
+        },
+        {
+            "sec": 97,
+            "temp": -4.017516094505195e+16,
+            "performance": 1.0
+        },
+        {
+            "sec": 98,
+            "temp": 5.908111903684117e+16,
+            "performance": 0.5
+        },
+        {
+            "sec": 99,
+            "temp": -8.68839985835899e+16,
+            "performance": 1.0
+        },
+        {
+            "sec": 100,
+            "temp": 1.2777058615233819e+17,
+            "performance": 0.5
+        },
+        {
+            "sec": 101,
+            "temp": -1.87897920812262e+17,
+            "performance": 1.0
+        },
+        {
+            "sec": 102,
+            "temp": 2.7632047178273837e+17,
+            "performance": 0.5
+        },
+        {
+            "sec": 103,
+            "temp": -4.0635363497461523e+17,
+            "performance": 1.0
+        },
+        {
+            "sec": 104,
+            "temp": 5.975788749626696e+17,
+            "performance": 0.5
+        },
+        {
+            "sec": 105,
+            "temp": -8.787924631803965e+17,
+            "performance": 1.0
+        },
+        {
+            "sec": 106,
+            "temp": 1.2923418576182303e+18,
+            "performance": 0.5
+        },
+        {
+            "sec": 107,
+            "temp": -1.9005027317915151e+18,
+            "performance": 1.0
+        },
+        {
+            "sec": 108,
+            "temp": 2.794856958516934e+18,
+            "performance": 0.5
+        },
+        {
+            "sec": 109,
+            "temp": -4.110083762524904e+18,
+            "performance": 1.0
+        },
+        {
+            "sec": 110,
+            "temp": 6.044240827242506e+18,
+            "performance": 0.5
+        },
+        {
+            "sec": 111,
+            "temp": -8.888589451827216e+18,
+            "performance": 1.0
+        },
+        {
+            "sec": 112,
+            "temp": 1.3071455076216496e+19,
+            "performance": 0.5
+        },
+        {
+            "sec": 113,
+            "temp": -1.9222728053259555e+19,
+            "performance": 1.0
+        },
+        {
+            "sec": 114,
+            "temp": 2.82687177253817e+19,
+            "performance": 0.5
+        },
+        {
+            "sec": 115,
+            "temp": -4.157164371379662e+19,
+            "performance": 1.0
+        },
+        {
+            "sec": 116,
+            "temp": 6.113477016734797e+19,
+            "performance": 0.5
+        },
+        {
+            "sec": 117,
+            "temp": -8.990407377551173e+19,
+            "performance": 1.0
+        },
+        {
+            "sec": 118,
+            "temp": 1.3221187319928196e+20,
+            "performance": 0.5
+        },
+        {
+            "sec": 119,
+            "temp": -1.9442922529306172e+20,
+            "performance": 1.0
+        }
+    ],
+    "Standard_NVMe_Aluminum": [
+        {
+            "sec": 0,
+            "temp": 28.82,
+            "performance": 1.0
+        },
+        {
+            "sec": 1,
+            "temp": 31.73,
+            "performance": 1.0
+        },
+        {
+            "sec": 2,
+            "temp": 33.93,
+            "performance": 1.0
+        },
+        {
+            "sec": 3,
+            "temp": 35.6,
+            "performance": 1.0
+        },
+        {
+            "sec": 4,
+            "temp": 36.87,
+            "performance": 1.0
+        },
+        {
+            "sec": 5,
+            "temp": 37.83,
+            "performance": 1.0
+        },
+        {
+            "sec": 6,
+            "temp": 38.56,
+            "performance": 1.0
+        },
+        {
+            "sec": 7,
+            "temp": 39.12,
+            "performance": 1.0
+        },
+        {
+            "sec": 8,
+            "temp": 39.54,
+            "performance": 1.0
+        },
+        {
+            "sec": 9,
+            "temp": 39.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 10,
+            "temp": 40.1,
+            "performance": 1.0
+        },
+        {
+            "sec": 11,
+            "temp": 40.28,
+            "performance": 1.0
+        },
+        {
+            "sec": 12,
+            "temp": 40.42,
+            "performance": 1.0
+        },
+        {
+            "sec": 13,
+            "temp": 40.53,
+            "performance": 1.0
+        },
+        {
+            "sec": 14,
+            "temp": 40.61,
+            "performance": 1.0
+        },
+        {
+            "sec": 15,
+            "temp": 40.67,
+            "performance": 1.0
+        },
+        {
+            "sec": 16,
+            "temp": 40.71,
+            "performance": 1.0
+        },
+        {
+            "sec": 17,
+            "temp": 40.75,
+            "performance": 1.0
+        },
+        {
+            "sec": 18,
+            "temp": 40.78,
+            "performance": 1.0
+        },
+        {
+            "sec": 19,
+            "temp": 40.8,
+            "performance": 1.0
+        },
+        {
+            "sec": 20,
+            "temp": 40.81,
+            "performance": 1.0
+        },
+        {
+            "sec": 21,
+            "temp": 40.82,
+            "performance": 1.0
+        },
+        {
+            "sec": 22,
+            "temp": 40.83,
+            "performance": 1.0
+        },
+        {
+            "sec": 23,
+            "temp": 40.84,
+            "performance": 1.0
+        },
+        {
+            "sec": 24,
+            "temp": 40.84,
+            "performance": 1.0
+        },
+        {
+            "sec": 25,
+            "temp": 40.85,
+            "performance": 1.0
+        },
+        {
+            "sec": 26,
+            "temp": 40.85,
+            "performance": 1.0
+        },
+        {
+            "sec": 27,
+            "temp": 40.85,
+            "performance": 1.0
+        },
+        {
+            "sec": 28,
+            "temp": 40.85,
+            "performance": 1.0
+        },
+        {
+            "sec": 29,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 30,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 31,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 32,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 33,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 34,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 35,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 36,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 37,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 38,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 39,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 40,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 41,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 42,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 43,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 44,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 45,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 46,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 47,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 48,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 49,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 50,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 51,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 52,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 53,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 54,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 55,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 56,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 57,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 58,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 59,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 60,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 61,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 62,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 63,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 64,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 65,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 66,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 67,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 68,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 69,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 70,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 71,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 72,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 73,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 74,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 75,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 76,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 77,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 78,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 79,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 80,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 81,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 82,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 83,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 84,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 85,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 86,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 87,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 88,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 89,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 90,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 91,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 92,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 93,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 94,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 95,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 96,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 97,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 98,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 99,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 100,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 101,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 102,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 103,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 104,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 105,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 106,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 107,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 108,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 109,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 110,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 111,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 112,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 113,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 114,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 115,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 116,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 117,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 118,
+            "temp": 40.86,
+            "performance": 1.0
+        },
+        {
+            "sec": 119,
+            "temp": 40.86,
+            "performance": 1.0
+        }
+    ]
+}
