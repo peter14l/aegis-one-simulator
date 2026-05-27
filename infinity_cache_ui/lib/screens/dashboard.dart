@@ -218,6 +218,28 @@ class DashboardScreen extends StatelessWidget {
                                             ),
                                           ),
                                         ),
+                                        const SizedBox(width: 12),
+                                        ElevatedButton.icon(
+                                          onPressed: bridge.triggerSuddenPowerLoss,
+                                          icon: const Icon(
+                                            Icons.bolt,
+                                            color: Colors.white,
+                                            size: 16,
+                                          ),
+                                          label: const Text("TRIGGER POWER LOSS"),
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: AppTheme.error,
+                                            foregroundColor: Colors.white,
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 16,
+                                              vertical: 12,
+                                            ),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ],
@@ -275,6 +297,16 @@ class DashboardScreen extends StatelessWidget {
                                                         .toStringAsFixed(1),
                                                     unit: ' MB/s',
                                                     color: AppTheme.accent,
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 16),
+                                                Expanded(
+                                                  child: _MetricCard(
+                                                    title: 'LOST PAGES (POWER LOSS)',
+                                                    value: metrics.lostDirtyPagesCount
+                                                        .toString(),
+                                                    unit: ' sectors',
+                                                    color: AppTheme.error,
                                                   ),
                                                 ),
                                               ],
