@@ -42,6 +42,7 @@ pub struct Telemetry {
     pub performance_multiplier: f64,
     pub pseudo_slc_active: bool,
     pub lost_dirty_pages_count: u64,
+    pub host_plp_enabled: bool,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -51,6 +52,7 @@ pub enum Command {
     GetTelemetry,
     SetHmbCapacity(u64), // Dynamically resize HMB
     SuddenPowerLoss,     // Simulate sudden power loss
+    ToggleHostPlp,       // Toggle host power loss protection
 }
 
 pub struct UfsChannel {
@@ -97,6 +99,7 @@ pub struct AegisEngine {
     pub is_panic: AtomicBool,
     pub pseudo_slc_active: AtomicBool,
     pub lost_dirty_pages_count: AtomicU64,
+    pub host_plp_enabled: AtomicBool,
 
     #[cfg(feature = "std")]
     ftl_map: SyncMutex<HashMap<u32, u32>>,
@@ -135,6 +138,7 @@ impl AegisEngine {
             is_panic: AtomicBool::new(false),
             pseudo_slc_active: AtomicBool::new(false),
             lost_dirty_pages_count: AtomicU64::new(0),
+            host_plp_enabled: AtomicBool::new(true), // Default to enabled for safety
             ftl_map: SyncMutex::new(HashMap::new()),
             dirty_pages: SyncMutex::new(HashSet::new()),
             next_pba: AtomicU64::new(0),
@@ -160,6 +164,7 @@ impl AegisEngine {
             is_panic: AtomicBool::new(false),
             pseudo_slc_active: AtomicBool::new(false),
             lost_dirty_pages_count: AtomicU64::new(0),
+            host_plp_enabled: AtomicBool::new(true),
             ftl_map: SyncMutex::new(heapless::LinearMap::new()),
             dirty_pages: SyncMutex::new(heapless::LinearMap::new()),
             next_pba: AtomicU64::new(0),
@@ -288,6 +293,7 @@ impl AegisEngine {
             performance_multiplier,
             pseudo_slc_active: self.pseudo_slc_active.load(Ordering::SeqCst),
             lost_dirty_pages_count: self.lost_dirty_pages_count.load(Ordering::SeqCst),
+            host_plp_enabled: self.host_plp_enabled.load(Ordering::SeqCst),
         }
     }
 
@@ -342,16 +348,27 @@ impl AegisEngine {
 
     #[cfg(feature = "std")]
     pub async fn trigger_sudden_power_loss(&self) {
-        let mut cache = self.hmb_cache.lock().unwrap();
-        let mut fifo = self.hmb_fifo.lock().unwrap();
-        let mut dirty = self.dirty_pages.lock().unwrap();
+        // If Host PLP is enabled, simulate power loss recovery by performing a fast panic flush before power goes down completely
+        if self.host_plp_enabled.load(Ordering::SeqCst) {
+            self.trigger_panic_flush().await;
+        } else {
+            let mut cache = self.hmb_cache.lock().unwrap();
+            let mut fifo = self.hmb_fifo.lock().unwrap();
+            let mut dirty = self.dirty_pages.lock().unwrap();
 
-        let lost = dirty.len() as u64;
-        self.lost_dirty_pages_count.fetch_add(lost, Ordering::SeqCst);
+            let lost = dirty.len() as u64;
+            self.lost_dirty_pages_count.fetch_add(lost, Ordering::SeqCst);
 
-        cache.clear();
-        fifo.clear();
-        dirty.clear();
-        self.active_pages.store(0, Ordering::SeqCst);
+            cache.clear();
+            fifo.clear();
+            dirty.clear();
+            self.active_pages.store(0, Ordering::SeqCst);
+        }
+    }
+
+    #[cfg(feature = "std")]
+    pub fn toggle_host_plp(&self) {
+        let current = self.host_plp_enabled.load(Ordering::SeqCst);
+        self.host_plp_enabled.store(!current, Ordering::SeqCst);
     }
 }

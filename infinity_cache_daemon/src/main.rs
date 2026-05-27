@@ -20,6 +20,7 @@ pub enum Command {
     GetTelemetry,
     SetHmbCapacity(u64),
     SuddenPowerLoss,
+    ToggleHostPlp,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -36,6 +37,7 @@ pub struct Telemetry {
     pub performance_multiplier: f64,
     pub pseudo_slc_active: bool,
     pub lost_dirty_pages_count: u64,
+    pub host_plp_enabled: bool,
 }
 
 #[tokio::main]
@@ -187,6 +189,10 @@ async fn main() -> std::io::Result<()> {
                         },
                         "TRIGGER_SUDDEN_POWER_LOSS" => {
                             let mut p = serde_json::to_string(&Command::SuddenPowerLoss).unwrap();
+                            p.push('\n'); let _ = writer_cmd.send(p);
+                        },
+                        "TOGGLE_HOST_PLP" => {
+                            let mut p = serde_json::to_string(&Command::ToggleHostPlp).unwrap();
                             p.push('\n'); let _ = writer_cmd.send(p);
                         },
                         _ => println!("[DAEMON] Unknown command: {}", text)

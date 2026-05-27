@@ -90,6 +90,9 @@ async fn main() -> Result<(), std::boxed::Box<dyn std::error::Error>> {
                                 Command::SuddenPowerLoss => {
                                     engine_conn.trigger_sudden_power_loss().await;
                                 }
+                                Command::ToggleHostPlp => {
+                                    engine_conn.toggle_host_plp();
+                                }
                                 Command::GetTelemetry => {
                                     let tel = engine_conn.get_telemetry().await;
                                     if let Ok(mut json) = serde_json::to_string(&tel) {

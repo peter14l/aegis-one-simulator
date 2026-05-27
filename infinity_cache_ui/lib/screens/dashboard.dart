@@ -240,6 +240,28 @@ class DashboardScreen extends StatelessWidget {
                                             ),
                                           ),
                                         ),
+                                        const SizedBox(width: 12),
+                                        ElevatedButton.icon(
+                                          onPressed: bridge.toggleHostPlp,
+                                          icon: Icon(
+                                            metrics.hostPlpEnabled ? Icons.security : Icons.warning_amber_rounded,
+                                            color: Colors.white,
+                                            size: 16,
+                                          ),
+                                          label: Text(metrics.hostPlpEnabled ? "HOST PLP: ON (0 LOSS)" : "HOST PLP: OFF (DATA LOSS)"),
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: metrics.hostPlpEnabled ? AppTheme.success : AppTheme.accent,
+                                            foregroundColor: Colors.white,
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 16,
+                                              vertical: 12,
+                                            ),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ],

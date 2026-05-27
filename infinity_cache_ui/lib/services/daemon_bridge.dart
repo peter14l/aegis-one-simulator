@@ -20,6 +20,7 @@ class Metrics {
   final bool pseudoSlcActive;
   final int hmbMaxPages;
   final int lostDirtyPagesCount;
+  final bool hostPlpEnabled;
 
   const Metrics({
     required this.iops,
@@ -38,6 +39,7 @@ class Metrics {
     required this.pseudoSlcActive,
     required this.hmbMaxPages,
     required this.lostDirtyPagesCount,
+    required this.hostPlpEnabled,
   });
 }
 
@@ -59,6 +61,7 @@ class DaemonBridge extends ChangeNotifier {
     pseudoSlcActive: false,
     hmbMaxPages: 4096,
     lostDirtyPagesCount: 0,
+    hostPlpEnabled: true,
   );
 
   Metrics get metrics => _metrics;
@@ -165,6 +168,7 @@ class DaemonBridge extends ChangeNotifier {
         pseudoSlcActive: mockPressure > 0.85,
         hmbMaxPages: _hmbPressureSimulated ? 512 : 4096,
         lostDirtyPagesCount: _metrics.lostDirtyPagesCount,
+        hostPlpEnabled: _metrics.hostPlpEnabled,
       );
 
       // Update thermal history
@@ -245,6 +249,7 @@ class DaemonBridge extends ChangeNotifier {
         pseudoSlcActive: json['pseudo_slc_active'] as bool,
         hmbMaxPages: (json['hmb_max_pages'] as num).toInt(),
         lostDirtyPagesCount: (json['lost_dirty_pages_count'] as num?)?.toInt() ?? 0,
+        hostPlpEnabled: json['host_plp_enabled'] as bool? ?? true,
       );
 
       _simulatedNvmeTemp = (_simulatedNvmeTemp + (currentIops > 30000 ? 0.4 : -0.05)).clamp(25.0, 98.0);
@@ -333,10 +338,21 @@ class DaemonBridge extends ChangeNotifier {
     if (_isActuallyConnected) {
       _channel?.sink.add("TRIGGER_SUDDEN_POWER_LOSS");
     } else {
-      // Mock mode increments lost count for display simulation
-      _metrics = _metrics.copyWith(
-        lostDirtyPagesCount: _metrics.lostDirtyPagesCount + 45,
-      );
+      // Mock mode increments lost count for display simulation if PLP is disabled
+      if (!_metrics.hostPlpEnabled) {
+        _metrics = _metrics.copyWith(
+          lostDirtyPagesCount: _metrics.lostDirtyPagesCount + 45,
+        );
+      }
+    }
+    notifyListeners();
+  }
+
+  void toggleHostPlp() {
+    if (_isActuallyConnected) {
+      _channel?.sink.add("TOGGLE_HOST_PLP");
+    } else {
+      _metrics = _metrics.copyWith(hostPlpEnabled: !_metrics.hostPlpEnabled);
     }
     notifyListeners();
   }
@@ -350,7 +366,7 @@ class DaemonBridge extends ChangeNotifier {
 }
 
 extension MetricsExtension on Metrics {
-  Metrics copyWith({String? status, int? lostDirtyPagesCount}) {
+  Metrics copyWith({String? status, int? lostDirtyPagesCount, bool? hostPlpEnabled}) {
     return Metrics(
       iops: iops,
       throughputMb: throughputMb,
@@ -368,6 +384,7 @@ extension MetricsExtension on Metrics {
       pseudoSlcActive: pseudoSlcActive,
       hmbMaxPages: hmbMaxPages,
       lostDirtyPagesCount: lostDirtyPagesCount ?? this.lostDirtyPagesCount,
+      hostPlpEnabled: hostPlpEnabled ?? this.hostPlpEnabled,
     );
   }
 }
