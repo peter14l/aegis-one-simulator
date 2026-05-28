@@ -1,3 +1,7 @@
+// Copyright (c) 2026 Aegis-One Storage Architecture Group. All rights reserved.
+// This source code is proprietary and licensed under the Aegis-One Commercial Evaluation License (see LICENSE_EVALUATION.md).
+// Unauthorized copying, modification, or distribution of this file is strictly prohibited.
+
 // Aegis-Alpha Silicon Controller Architecture V3.0 (Elastic HMB Edition)
 // Target: TSMC 22nm ULP / ASIC
 // Role: High-Speed NVMe 2.0 to 4-Channel UFS 4.0 Array with Elastic HMB DMA

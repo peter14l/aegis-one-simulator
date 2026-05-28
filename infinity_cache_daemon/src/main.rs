@@ -1,3 +1,7 @@
+// Copyright (c) 2026 Aegis-One Storage Architecture Group. All rights reserved.
+// This source code is proprietary and licensed under the Aegis-One Commercial Evaluation License (see LICENSE_EVALUATION.md).
+// Unauthorized copying, modification, or distribution of this file is strictly prohibited.
+
 use notify::{Watcher, RecursiveMode, Config, EventKind};
 use std::path::PathBuf;
 use std::time::Duration;

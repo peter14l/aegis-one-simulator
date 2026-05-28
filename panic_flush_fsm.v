@@ -1,3 +1,7 @@
+// Copyright (c) 2026 Aegis-One Storage Architecture Group. All rights reserved.
+// This source code is proprietary and licensed under the Aegis-One Commercial Evaluation License (see LICENSE_EVALUATION.md).
+// Unauthorized copying, modification, or distribution of this file is strictly prohibited.
+
 // panic_flush_fsm.v
 // Aegis-Alpha Phase 3: Host-Managed Emergency Persistence Handler
 // Triggers on NVMe PLN or ACPI_FLUSH and flushes dirty HMB pages to UFS.

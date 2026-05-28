@@ -1,3 +1,7 @@
+// Copyright (c) 2026 Aegis-One Storage Architecture Group. All rights reserved.
+// This source code is proprietary and licensed under the Aegis-One Commercial Evaluation License (see LICENSE_EVALUATION.md).
+// Unauthorized copying, modification, or distribution of this file is strictly prohibited.
+
 // ufs_async_persistence.v
 // Aegis-Alpha Phase 3: 4-Channel UFS 4.0 Asynchronous Array
 // Role: Masks BKOPS/GC latency by routing writes to the first available non-busy channel.
