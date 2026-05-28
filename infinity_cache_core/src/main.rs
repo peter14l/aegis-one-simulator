@@ -65,10 +65,10 @@ async fn main() -> Result<(), std::boxed::Box<dyn std::error::Error>> {
 
                         if let Ok(cmd) = serde_json::from_str::<Command>(line) {
                             match cmd {
-                                Command::WriteLba(lba) => {
-                                    engine_conn.handle_write(lba).await;
+                                Command::WriteLba { lba, is_metadata, fua } => {
+                                    engine_conn.handle_write(lba, is_metadata, fua).await;
                                 }
-                                Command::WriteLbaBatch { start, count } => {
+                                Command::WriteLbaBatch { start, count, is_metadata, fua } => {
                                     let engine_clone = engine_conn.clone();
                                     tokio::spawn(async move {
                                         let mut i = 0;
@@ -79,7 +79,7 @@ async fn main() -> Result<(), std::boxed::Box<dyn std::error::Error>> {
                                                 batch.push(start.wrapping_add(i));
                                                 i += 1;
                                             }
-                                            engine_clone.handle_write_batch(&batch).await;
+                                            engine_clone.handle_write_batch(&batch, is_metadata, fua).await;
                                             tokio::task::yield_now().await;
                                         }
                                     });

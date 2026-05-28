@@ -15,8 +15,8 @@ const WS_PORT: &str = "127.0.0.1:3030";
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub enum Command {
-    WriteLba(u32),
-    WriteLbaBatch { start: u32, count: u32 },
+    WriteLba { lba: u32, is_metadata: bool, fua: bool },
+    WriteLbaBatch { start: u32, count: u32, is_metadata: bool, fua: bool },
     GetTelemetry,
     SetHmbCapacity(u64),
     SuddenPowerLoss,
@@ -85,7 +85,7 @@ async fn main() -> std::io::Result<()> {
         let mut lba: u32 = 0x50000000;
         loop {
             if stress_active_clone.load(Ordering::SeqCst) {
-                let cmd = Command::WriteLbaBatch { start: lba, count: 2000 };
+                let cmd = Command::WriteLbaBatch { start: lba, count: 2000, is_metadata: false, fua: false };
                 let mut payload = serde_json::to_string(&cmd).unwrap();
                 payload.push('\n');
                 let _ = writer_stress.send(payload);
@@ -102,7 +102,7 @@ async fn main() -> std::io::Result<()> {
         let mut lba: u32 = 0x70000000;
         loop {
             if thermal_active_clone.load(Ordering::SeqCst) {
-                let cmd = Command::WriteLbaBatch { start: lba, count: 5000 };
+                let cmd = Command::WriteLbaBatch { start: lba, count: 5000, is_metadata: false, fua: false };
                 let mut payload = serde_json::to_string(&cmd).unwrap();
                 payload.push('\n');
                 let _ = writer_thermal.send(payload);
@@ -121,7 +121,7 @@ async fn main() -> std::io::Result<()> {
             if remaining > 0 {
                 let batch = remaining.min(8000) as u32;
                 let lba = (1_000_000u32).wrapping_sub(remaining as u32);
-                let cmd = Command::WriteLbaBatch { start: lba % 4096, count: batch };
+                let cmd = Command::WriteLbaBatch { start: lba % 4096, count: batch, is_metadata: false, fua: false };
                 let mut payload = serde_json::to_string(&cmd).unwrap();
                 payload.push('\n');
                 let _ = writer_demo.send(payload);

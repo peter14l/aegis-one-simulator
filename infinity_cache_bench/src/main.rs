@@ -25,7 +25,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Run 1,000,000 writes in batches
     for lba in 0..1_000_000 {
         // Repeatedly write to the 4,096 working set to simulate hot storage/temp build files
-        engine.handle_write(lba % 4096).await;
+        engine.handle_write(lba % 4096, false, false).await;
         if lba % 50000 == 0 && lba > 0 {
             tokio::task::yield_now().await;
         }

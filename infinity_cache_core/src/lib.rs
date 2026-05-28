@@ -6,6 +6,8 @@ extern crate std;
 #[cfg(feature = "std")]
 use std::collections::{HashMap, HashSet, VecDeque};
 #[cfg(feature = "std")]
+use std::time::Duration;
+#[cfg(feature = "std")]
 use std::sync::{Arc, Mutex as SyncMutex};
 
 #[cfg(not(feature = "std"))]
@@ -47,8 +49,8 @@ pub struct Telemetry {
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub enum Command {
-    WriteLba(u32),
-    WriteLbaBatch { start: u32, count: u32 },
+    WriteLba { lba: u32, is_metadata: bool, fua: bool },
+    WriteLbaBatch { start: u32, count: u32, is_metadata: bool, fua: bool },
     GetTelemetry,
     SetHmbCapacity(u64), // Dynamically resize HMB
     SuddenPowerLoss,     // Simulate sudden power loss
@@ -173,13 +175,17 @@ impl AegisEngine {
     }
 
     #[cfg(feature = "std")]
-    pub async fn handle_write(&self, lba: u32) {
-        self.handle_write_batch(&[lba]).await;
+    pub async fn handle_write(&self, lba: u32, is_metadata: bool, fua: bool) {
+        self.handle_write_batch(&[lba], is_metadata, fua).await;
     }
 
     #[cfg(feature = "std")]
-    pub async fn handle_write_batch(&self, lbas: &[u32]) {
+    pub async fn handle_write_batch(&self, lbas: &[u32], is_metadata: bool, fua: bool) {
         if self.is_panic.load(Ordering::SeqCst) { return; }
+
+        // Emulate PCIe DMA latency overhead (10 microseconds base + 2 microseconds per sector)
+        let dma_delay = Duration::from_micros(10 + (lbas.len() as u64 * 2));
+        tokio::time::sleep(dma_delay).await;
 
         let hmb_limit = self.hmb_max_pages.load(Ordering::SeqCst);
         let mut direct_writes = std::vec::Vec::new();
@@ -190,8 +196,8 @@ impl AegisEngine {
             let mut dirty = self.dirty_pages.lock().unwrap();
 
             for &lba in lbas {
-                // Metadata Safe Path: Bypass volatile HMB for critical blocks (LBA < 100)
-                if lba < 100 {
+                // Metadata Safe Path: Bypass volatile HMB for critical blocks (LBA < 100) or explicit flags
+                if is_metadata || fua || lba < 100 {
                     direct_writes.push(lba);
                     continue;
                 }
